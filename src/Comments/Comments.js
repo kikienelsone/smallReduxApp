@@ -1,27 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SingleComment from "../SingleComment/SingleComment";
+import {useDispatch, useSelector} from "react-redux";
+import uniqid from "uniqid";
+import {commentCreate, commentsLoad} from "../redux/actions";
 
 const Comments = (props) => {
 
+    const comments = useSelector(state => {
+        const {commentsReducer} = state
+        return commentsReducer.comments
+    })
+    const dispatch = useDispatch()
     const [textComment, setTextComment] = useState("")
 
-    const handleChange = (event) => {
+    useEffect(() =>{
+        dispatch(commentsLoad())
+    },[])
+
+    const handleInput = (event) => {
         setTextComment(event.target.value)
     }
-    
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(textComment)
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const id = uniqid();
+        dispatch(commentCreate(textComment, id));
     }
-    
+
     return (
-        <div className="card-comments">
-            <form onSubmit={handleSubmit} className="comments-item-create">
-                <input type="text" value={textComment} onChange={handleChange}/>
-                <input type="submit" hidden/>
+
+        <div className='card-comments'>
+            <form onSubmit={handleSubmit} className='comments-item-create'>
+                <input type='text' value={textComment} onChange={handleInput} placeholder="your comment here"/>
+                <input type='submit' hidden />
             </form>
-            <SingleComment/>
+            {!!comments.length && comments.map(res => {
+                return <SingleComment key={res.id} data={res}/>
+            })}
         </div>
     );
 };
