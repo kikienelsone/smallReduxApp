@@ -5,8 +5,8 @@ import App from './components/App';
 import {createStore, compose, applyMiddleware} from "redux";
 import {rootReducer} from "./redux/rootReducer";
 import {Provider} from "react-redux";
-import './index.css';
 import {spamFilter} from "./redux/middleware";
+import './index.css';
 
 
 
