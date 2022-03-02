@@ -10,7 +10,7 @@ export const spamFilter = ({dispatch}) => {
                 console.log(action.data.text)
                 const isBadWords = badWords.some(bad => action.data.text.includes(bad))
                 if(isBadWords){
-                    return dispatch(errorOn("PIZDEC"))
+                    return dispatch(errorOn("NO"))
                 }
             }
             return (next.action)
