@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from "redux-thunk";
-import App from './components/App';
 import {createStore, compose, applyMiddleware} from "redux";
 import {rootReducer} from "./redux/rootReducer";
 import {Provider} from "react-redux";
 import {spamFilter} from "./redux/middleware";
+import App from './components/App';
 import './index.css';
 
 
